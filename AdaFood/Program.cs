@@ -1,5 +1,4 @@
 using AdaFood.Application.Filters;
-using AdaFood.Application.Middlewares;
 using AdaFood.Application.Services;
 using AdaFood.Domain;
 using AdaFood.Domain.Interfaces;
