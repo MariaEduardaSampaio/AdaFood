@@ -57,7 +57,7 @@ namespace AdaFood.Application.Controllers
             return Ok(entregadorDeletado);
         }
 
-        [HttpGet("AdicionarPedido/{id}")]
+        [HttpPut("AdicionarPedido/{id}")]
         public async Task<IActionResult> AdicionarPedido([FromRoute] int id, [FromBody] CriarPedidoRequest request)
         {
             try
