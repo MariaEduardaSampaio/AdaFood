@@ -7,12 +7,13 @@ namespace AdaFood.Application.Services
 {
     public class EntregadorService: IEntregadorService
     {
-        private static int contadorId = 0;
+        private static int contadorId;
         private readonly IEntregadorRepository<Entregador> _repository;
 
         public EntregadorService(IEntregadorRepository<Entregador> repository)
         {
             _repository = repository;
+            contadorId = _repository.GetAll().Last().Id + 1;
         }
 
         public Entregador? CadastrarEntregador(CriarEntregadorRequest request)
@@ -70,17 +71,21 @@ namespace AdaFood.Application.Services
             return entregador;
         }
 
-        public Entregador? AdicionarPedido(int id, CriarPedidoRequest request)
+        public Entregador? AdicionarPedido(int id, CriarPedidoRequest request, Endereco endereco)
         {
             var entregador = _repository.GetById(id);
-            if (entregador != null)
+            endereco.number = request.Numero;
+
+            if (entregador is not null)
             {
                 var pedido = new Pedido()
                 {
-                    Cep = request.Cep,
                     Descricao = request.Descricao,
-                    Numero = request.Numero
+                    Endereco = endereco
                 };
+
+                if (entregador.Pedidos is null)
+                    entregador.Pedidos = new List<Pedido>(); 
 
                 entregador.Pedidos.Add(pedido);
                 _repository.Update(entregador);
