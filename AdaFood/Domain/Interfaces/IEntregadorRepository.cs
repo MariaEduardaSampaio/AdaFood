@@ -1,10 +1,14 @@
 ﻿namespace AdaFood.Domain.Interfaces
 {
-    public interface IRepository<T>
+    public interface IEntregadorRepository<T>
     {
         void Add(T entity);
         void Update(T entity);
-        void Delete(int id);
+        T? Delete(int id);
+        IEnumerable<T> GetAll();
+
         T? GetById(int id);
+        T? GetByCPF(string cpf);
+
     }
 }

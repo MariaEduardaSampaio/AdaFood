@@ -1,22 +1,24 @@
 ﻿using AdaFood.Application.DataAnnotations;
+using AdaFood.Domain;
 using System.ComponentModel.DataAnnotations;
 
-namespace AdaFood.Domain
+namespace AdaFood.Application.Requests
 {
-    public class Entregador
+    public class AtualizarEntregadorRequest
     {
         [Required]
         public int Id { get; set; }
 
         [Required]
+        [MinLength(2), MaxLength(80)]
         public string Nome { get; set; }
 
-        [Required]
+        [ValidarEmail]
         public string Email { get; set; }
 
-        [Required]
+        [ValidarCPF]
         public string Cpf { get; set; }
 
-        public List<Pedido> Pedidos {get; set;}
+        public List<Pedido> Pedidos { get; set; }
     }
 }
