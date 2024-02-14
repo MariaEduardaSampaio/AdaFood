@@ -9,7 +9,6 @@ namespace AdaFood.Domain.Interfaces
         IEnumerable<Entregador> PegarTodosEntregadores();
         Entregador? AtualizarEntregador(AtualizarEntregadorRequest request);
         Entregador? DeletarEntregador(int id);
-        Entregador? AdicionarPedido(int id, CriarPedidoRequest request);
-
+        Entregador? AdicionarPedido(int id, CriarPedidoRequest request, Endereco endereco);
     }
 }
