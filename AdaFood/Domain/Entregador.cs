@@ -1,5 +1,4 @@
-﻿using AdaFood.Application.DataAnnotations;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AdaFood.Domain
 {
@@ -17,6 +16,7 @@ namespace AdaFood.Domain
         [Required]
         public string Cpf { get; set; }
 
-        public List<Pedido> Pedidos {get; set;}
+        public List<Pedido>? Pedidos { get; set; } = new();
+
     }
 }
