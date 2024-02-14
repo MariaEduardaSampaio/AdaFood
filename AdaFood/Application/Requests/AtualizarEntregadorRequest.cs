@@ -19,6 +19,7 @@ namespace AdaFood.Application.Requests
         [ValidarCPF]
         public string Cpf { get; set; }
 
-        public List<Pedido> Pedidos { get; set; }
+        [Required]
+        public List<Pedido>? Pedidos { get; set; }
     }
 }
