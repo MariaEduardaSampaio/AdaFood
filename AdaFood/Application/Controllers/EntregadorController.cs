@@ -1,8 +1,10 @@
 ﻿using AdaFood.Application.Filters;
 using AdaFood.Application.Requests;
+using AdaFood.Domain;
 using AdaFood.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+
 namespace AdaFood.Application.Controllers
 {
     [ApiController]
@@ -24,7 +26,7 @@ namespace AdaFood.Application.Controllers
         public IActionResult CadastrarEntregador([FromBody] CriarEntregadorRequest request, [FromQuery] bool erro)
         {
             if (erro)
-                throw new Exception("Deu um erro muito feio que não pode ser visto pelo cliente.");
+                throw new Exception("Deu um erro muito feio que não pode ser visto pelo usuário.");
             var entregador = _service.CadastrarEntregador(request);
             return Ok(entregador);
         }
@@ -68,7 +70,13 @@ namespace AdaFood.Application.Controllers
                 if (!response.IsSuccessStatusCode)
                     return BadRequest("Erro ao consultar o CEP.");
 
-                var entregador = _service.AdicionarPedido(id, request);
+                var cepInfoJSON = await response.Content.ReadAsStringAsync();
+                var endereco = JsonSerializer.Deserialize<Endereco>(cepInfoJSON);
+
+                if (endereco is null)
+                    return BadRequest("Não foi possível converter o CEP para o endereço correto.");
+
+                var entregador = _service.AdicionarPedido(id, request, endereco);
                 return Ok(entregador);
             }
             catch (Exception ex)
