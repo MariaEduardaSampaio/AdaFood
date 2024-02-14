@@ -58,7 +58,7 @@ namespace AdaFood.Application.Controllers
         }
 
         [HttpGet("AdicionarPedido/{id}")]
-        public async Task<IActionResult> GetAddressByCep([FromRoute] int id, [FromBody] CriarPedidoRequest request)
+        public async Task<IActionResult> AdicionarPedido([FromRoute] int id, [FromBody] CriarPedidoRequest request)
         {
             try
             {
