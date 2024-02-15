@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using AdaFood.Application.Responses;
 
 namespace AdaFood.Application.Filters
 {
@@ -8,11 +9,8 @@ namespace AdaFood.Application.Filters
         public void OnException(ExceptionContext context)
         {
             context.HttpContext.Response.StatusCode = 400;
-
-            var result = new ObjectResult("Ocorreu um erro ao processar a solicitação :( Tente novamente!")
-            {
-                StatusCode = context.HttpContext.Response.StatusCode
-            };
+            var erroResult = new ErroResponse(context.Exception.Message, context.HttpContext.Response.StatusCode);
+            var result = new JsonResult(erroResult);
 
             context.Result = result;
         }
